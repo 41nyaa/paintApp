@@ -11,6 +11,10 @@
 		49A2D6CD26AEDCE8005D3DAD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A2D6CC26AEDCE8005D3DAD /* ContentView.swift */; };
 		49A2D6CF26AEDCEA005D3DAD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49A2D6CE26AEDCEA005D3DAD /* Assets.xcassets */; };
 		49A2D6D226AEDCEA005D3DAD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49A2D6D126AEDCEA005D3DAD /* Preview Assets.xcassets */; };
+		49A2D6DA26AEDD09005D3DAD /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A2D6D926AEDD09005D3DAD /* CanvasView.swift */; };
+		49A2D6DC26AEDD5A005D3DAD /* Toolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A2D6DB26AEDD5A005D3DAD /* Toolbar.swift */; };
+		49A2D6DE26B422E1005D3DAD /* StrokeShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A2D6DD26B422E1005D3DAD /* StrokeShape.swift */; };
+		49A9C5B026B80F17002B6021 /* ShapeParam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A9C5AF26B80F16002B6021 /* ShapeParam.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +24,10 @@
 		49A2D6CE26AEDCEA005D3DAD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		49A2D6D126AEDCEA005D3DAD /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		49A2D6D326AEDCEA005D3DAD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		49A2D6D926AEDD09005D3DAD /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
+		49A2D6DB26AEDD5A005D3DAD /* Toolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toolbar.swift; sourceTree = "<group>"; };
+		49A2D6DD26B422E1005D3DAD /* StrokeShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrokeShape.swift; sourceTree = "<group>"; };
+		49A9C5AF26B80F16002B6021 /* ShapeParam.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeParam.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +60,10 @@
 		49A2D6C926AEDCE8005D3DAD /* paintApp */ = {
 			isa = PBXGroup;
 			children = (
+				49A9C5AF26B80F16002B6021 /* ShapeParam.swift */,
+				49A2D6DD26B422E1005D3DAD /* StrokeShape.swift */,
+				49A2D6DB26AEDD5A005D3DAD /* Toolbar.swift */,
+				49A2D6D926AEDD09005D3DAD /* CanvasView.swift */,
 				49A2D6CA26AEDCE8005D3DAD /* paintAppApp.swift */,
 				49A2D6CC26AEDCE8005D3DAD /* ContentView.swift */,
 				49A2D6CE26AEDCEA005D3DAD /* Assets.xcassets */,
@@ -138,8 +150,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49A2D6DE26B422E1005D3DAD /* StrokeShape.swift in Sources */,
 				49A2D6CD26AEDCE8005D3DAD /* ContentView.swift in Sources */,
 				49A2D6CB26AEDCE8005D3DAD /* paintAppApp.swift in Sources */,
+				49A2D6DA26AEDD09005D3DAD /* CanvasView.swift in Sources */,
+				49A2D6DC26AEDD5A005D3DAD /* Toolbar.swift in Sources */,
+				49A9C5B026B80F17002B6021 /* ShapeParam.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

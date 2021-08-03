@@ -2,7 +2,7 @@
 //  paintAppApp.swift
 //  paintApp
 //
-//  Created by scho on 2021/07/26.
+//  Created by 41nyaa on 2021/07/26.
 //
 
 import SwiftUI
