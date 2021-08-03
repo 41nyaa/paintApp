@@ -15,6 +15,10 @@ struct CanvasView : View {
     @State var points: [CGPoint] = []
     @State var shapes: [ShapeParam] = []
 
+    func undo() {
+        shapes.removeLast()
+    }
+    
     var drag: some Gesture{
         DragGesture()
         .onChanged{ value in
@@ -28,7 +32,7 @@ struct CanvasView : View {
 
     var body: some View {
         VStack {
-            Toolbar(mode: $mode, color: $color, weight: $weight)
+            Toolbar(mode: $mode, color: $color, weight: $weight, undo: self.undo)
             Rectangle()
                 .fill(Color.white)
                 .border(Color.black)

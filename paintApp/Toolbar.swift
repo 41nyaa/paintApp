@@ -19,11 +19,13 @@ struct Toolbar : View {
     @Binding var mode: PaintMode
     @Binding var color: Color
     @Binding var weight: Int
+    var undo: () -> Void
 
     var body: some View
     {
         VStack {
             HStack {
+                Spacer()
                 Picker("\(weight)", selection: $weight) {
                     Text("1").tag(1)
                     Text("2").tag(2)
@@ -37,6 +39,9 @@ struct Toolbar : View {
                     Text("10").tag(10)
                 }
                 .pickerStyle(MenuPickerStyle())
+                Button(action: undo) {
+                    Image(systemName: "arrow.uturn.backward")
+                }
                 ColorPicker("", selection: $color)
             }
             Picker("Paint Mode", selection: $mode) {
