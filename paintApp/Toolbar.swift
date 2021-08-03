@@ -10,7 +10,7 @@ import SwiftUI
 
 public enum PaintMode {
     case select
-    case circle
+    case ellipse
     case rectangle
     case line
 }
@@ -45,7 +45,7 @@ struct Toolbar : View {
                 Image(systemName: "pencil")
                     .tag(PaintMode.line)
                 Image(systemName: "pencil.circle")
-                    .tag(PaintMode.circle)
+                    .tag(PaintMode.ellipse)
                 Image(systemName: "square.and.pencil")
                     .tag(PaintMode.rectangle)
             }

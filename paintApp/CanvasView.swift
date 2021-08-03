@@ -40,6 +40,9 @@ struct CanvasView : View {
                             if self.shapes[index].mode == PaintMode.line {
                                 StrokeShape(param: self.shapes[index])
                             }
+                            else if self.shapes[index].mode == PaintMode.ellipse {
+                                EllipseShape(param: self.shapes[index])
+                            }
                        }
                     }
                 )
