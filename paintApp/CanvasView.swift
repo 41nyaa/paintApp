@@ -16,7 +16,41 @@ struct CanvasView : View {
     @State var shapes: [ShapeParam] = []
 
     func undo() {
-        shapes.removeLast()
+        if (shapes.count > 0) {
+            shapes.removeLast()
+        }
+    }
+    
+    func isInShape(selected: CGPoint, top: CGPoint, last: CGPoint) -> Bool {
+        let minX = (top.x < last.x) ? top.x : last.x
+        let maxX = (top.x < last.x) ? last.x : top.x
+        let minY = (top.y < last.y) ? top.y : last.y
+        let maxY = (top.y < last.y) ? last.y : top.y
+        if (minX <= selected.x) &&
+            (selected.x <= maxX) &&
+            (minY <= selected.y) &&
+            (selected.y <= maxY) {
+            return true
+        }
+        return false
+    }
+    
+    func moveShape() {
+        let moveX = points.last!.x - points[0].x
+        let moveY = points.last!.y - points[0].y
+        for (sindex, shape) in self.shapes.reversed().enumerated() {
+            var found = false
+            if (isInShape(selected: self.points[0], top: shape.points[0], last: shape.points.last!)) {
+                found = true
+            }
+            if (found) {
+                for (pindex, point) in shape.points.enumerated() {
+                    shapes[self.shapes.count - 1 - sindex].points[pindex] = CGPoint(x: point.x + moveX, y: point.y + moveY)
+                }
+                break
+            }
+        }
+
     }
     
     var drag: some Gesture{
@@ -25,7 +59,11 @@ struct CanvasView : View {
             self.points.append(value.location)
         }
         .onEnded{ value in
-            self.shapes.append(ShapeParam(mode: self.mode, points: self.points, color: self.color, weight: CGFloat(self.weight)))
+            if (mode != PaintMode.select) {
+                self.shapes.append(ShapeParam(mode: self.mode, points: self.points, color: self.color, weight: CGFloat(self.weight)))
+            } else {
+                moveShape()
+            }
             self.points = []
         }
     }

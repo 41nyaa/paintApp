@@ -13,8 +13,6 @@ struct EllipseShape: View {
     
     init(param: ShapeParam) {
         self.param = param
-        print(param.points[0].x,  param.points[param.points.count-1].x)
-        print(param.points[0].y,  param.points[param.points.count-1].y)
     }
 
     func calcPosition(p1: CGPoint, p2: CGPoint) -> CGPoint {
