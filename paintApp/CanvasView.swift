@@ -85,6 +85,9 @@ struct CanvasView : View {
                             else if self.shapes[index].mode == PaintMode.ellipse {
                                 EllipseShape(param: self.shapes[index])
                             }
+                            else if self.shapes[index].mode == PaintMode.rectangle {
+                                RectangleShape(param: self.shapes[index])
+                            }
                        }
                     }
                 )
