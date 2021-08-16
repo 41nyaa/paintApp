@@ -17,6 +17,7 @@
 		49A9C5B026B80F17002B6021 /* ShapeParam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A9C5AF26B80F16002B6021 /* ShapeParam.swift */; };
 		49CBC24426B8FC7C00C59AEC /* EllipseShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CBC24326B8FC7C00C59AEC /* EllipseShape.swift */; };
 		49CBC24626BCA11300C59AEC /* RectangleShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CBC24526BCA11300C59AEC /* RectangleShape.swift */; };
+		49CC8C5726CA84F400DB3E9A /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CC8C5626CA84F400DB3E9A /* Setting.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		49A9C5AF26B80F16002B6021 /* ShapeParam.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeParam.swift; sourceTree = "<group>"; };
 		49CBC24326B8FC7C00C59AEC /* EllipseShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EllipseShape.swift; sourceTree = "<group>"; };
 		49CBC24526BCA11300C59AEC /* RectangleShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleShape.swift; sourceTree = "<group>"; };
+		49CC8C5626CA84F400DB3E9A /* Setting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +71,7 @@
 				49A9C5AF26B80F16002B6021 /* ShapeParam.swift */,
 				49A2D6DD26B422E1005D3DAD /* StrokeShape.swift */,
 				49A2D6DB26AEDD5A005D3DAD /* Toolbar.swift */,
+				49CC8C5626CA84F400DB3E9A /* Setting.swift */,
 				49A2D6D926AEDD09005D3DAD /* CanvasView.swift */,
 				49A2D6CA26AEDCE8005D3DAD /* paintAppApp.swift */,
 				49A2D6CC26AEDCE8005D3DAD /* ContentView.swift */,
@@ -164,6 +167,7 @@
 				49CBC24626BCA11300C59AEC /* RectangleShape.swift in Sources */,
 				49A2D6DC26AEDD5A005D3DAD /* Toolbar.swift in Sources */,
 				49A9C5B026B80F17002B6021 /* ShapeParam.swift in Sources */,
+				49CC8C5726CA84F400DB3E9A /* Setting.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

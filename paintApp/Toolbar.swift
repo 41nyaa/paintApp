@@ -18,7 +18,7 @@ public enum PaintMode {
 struct Toolbar : View {
     @Binding var mode: PaintMode
     @Binding var color: Color
-    @Binding var weight: Int
+    @EnvironmentObject var setting: Setting
     var undo: () -> Void
 
     var body: some View
@@ -26,7 +26,7 @@ struct Toolbar : View {
         VStack {
             HStack {
                 Spacer()
-                Picker("\(weight)", selection: $weight) {
+                Picker("\(self.setting.data.weight)", selection: self.$setting.data.weight) {
                     Text("1").tag(1)
                     Text("2").tag(2)
                     Text("3").tag(3)
@@ -39,6 +39,9 @@ struct Toolbar : View {
                     Text("10").tag(10)
                 }
                 .pickerStyle(MenuPickerStyle())
+                .onChange(of: self.setting.data.weight) { value in
+                    self.setting.saveDefaults()
+                }
                 Button(action: undo) {
                     Image(systemName: "arrow.uturn.backward")
                 }

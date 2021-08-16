@@ -11,7 +11,7 @@ import SwiftUI
 struct CanvasView : View {
     @State var mode = PaintMode.line
     @State var color = Color(.sRGB, red: 0, green: 0, blue: 0)
-    @State var weight: Int = 6
+    @EnvironmentObject var setting: Setting
     @State var points: [CGPoint] = []
     @State var shapes: [ShapeParam] = []
 
@@ -60,7 +60,7 @@ struct CanvasView : View {
         }
         .onEnded{ value in
             if (mode != PaintMode.select) {
-                self.shapes.append(ShapeParam(mode: self.mode, points: self.points, color: self.color, weight: CGFloat(self.weight)))
+                self.shapes.append(ShapeParam(mode: self.mode, points: self.points, color: self.color, weight: CGFloat(self.setting.data.weight)))
             } else {
                 moveShape()
             }
@@ -70,7 +70,7 @@ struct CanvasView : View {
 
     var body: some View {
         VStack {
-            Toolbar(mode: $mode, color: $color, weight: $weight, undo: self.undo)
+            Toolbar(mode: $mode, color: $color, undo: self.undo)
             Rectangle()
                 .fill(Color.white)
                 .border(Color.black)
