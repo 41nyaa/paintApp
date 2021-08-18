@@ -14,10 +14,20 @@ struct CanvasView : View {
     @EnvironmentObject var setting: Setting
     @State var points: [CGPoint] = []
     @State var shapes: [ShapeParam] = []
+    @State var image: UIImage = UIImage()
 
     func undo() {
         if (shapes.count > 0) {
             shapes.removeLast()
+        }
+    }
+    
+    func openImage(imageUrl: URL) {
+        do {
+            let data = try Data(contentsOf: imageUrl)
+            self.image = UIImage(data: data)!
+        } catch {
+            fatalError("Load Image Error.fa")
         }
     }
     
@@ -70,27 +80,31 @@ struct CanvasView : View {
 
     var body: some View {
         VStack {
-            Toolbar(mode: $mode, color: $color, undo: self.undo)
-            Rectangle()
-                .fill(Color.white)
-                .border(Color.black)
-                .frame(width: 400, height: 400)
-                .gesture(drag)
-                .overlay(
-                    ZStack {
-                        ForEach(0..<shapes.count, id:\.self) { index in
-                            if self.shapes[index].mode == PaintMode.line {
-                                StrokeShape(param: self.shapes[index])
-                            }
-                            else if self.shapes[index].mode == PaintMode.ellipse {
-                                EllipseShape(param: self.shapes[index])
-                            }
-                            else if self.shapes[index].mode == PaintMode.rectangle {
-                                RectangleShape(param: self.shapes[index])
-                            }
-                       }
-                    }
-                )
+            Toolbar(mode: $mode, color: $color, undo: self.undo, openImage: self.openImage)
+            ZStack {
+                Image(uiImage: self.image)
+                    .resizable()
+                Rectangle()
+                    .fill(Color.clear)
+                    .border(Color.black)
+            }
+            .frame(width: 400, height: 400)
+            .gesture(drag)
+            .overlay(
+                ZStack {
+                    ForEach(0..<shapes.count, id:\.self) { index in
+                        if self.shapes[index].mode == PaintMode.line {
+                            StrokeShape(param: self.shapes[index])
+                        }
+                        else if self.shapes[index].mode == PaintMode.ellipse {
+                            EllipseShape(param: self.shapes[index])
+                        }
+                        else if self.shapes[index].mode == PaintMode.rectangle {
+                            RectangleShape(param: self.shapes[index])
+                        }
+                   }
+                }
+            )
         }
     }
 }

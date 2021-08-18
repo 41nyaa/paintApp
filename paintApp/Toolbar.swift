@@ -18,9 +18,11 @@ public enum PaintMode {
 struct Toolbar : View {
     @Binding var mode: PaintMode
     @Binding var color: Color
-    @EnvironmentObject var setting: Setting
+    @State var openFile: Bool = false
     var undo: () -> Void
-
+    var openImage: (URL) -> Void
+    @EnvironmentObject var setting: Setting
+    
     var body: some View
     {
         VStack {
@@ -44,6 +46,18 @@ struct Toolbar : View {
                 }
                 Button(action: undo) {
                     Image(systemName: "arrow.uturn.backward")
+                }
+                Button(action: {self.openFile.toggle()}, label: {
+                    Text("open")
+                })
+                .fileImporter(isPresented: $openFile, allowedContentTypes: [.bmp, .png], allowsMultipleSelection: false) { res in
+                    print(res)
+                    do {
+                        let fileUrl = try res.get().first!
+                        openImage(fileUrl)
+                    } catch {
+                        fatalError("Select File Error.")
+                    }
                 }
                 ColorPicker("", selection: $color)
             }
