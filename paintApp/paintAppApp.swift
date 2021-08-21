@@ -11,7 +11,8 @@ import SwiftUI
 struct paintAppApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView().environmentObject(Setting())
+            ContentView()
+                .environmentObject(Setting())
         }
     }
 }

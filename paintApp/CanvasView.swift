@@ -1,10 +1,9 @@
 //
-//  Canvas.swift
+//  CanvasView.swift
 //  paintApp
 //
-//  Created by 41nyaa on 2021/07/26.
+//  Created by 41nyaa on 2021/08/20.
 //
-
 import Foundation
 import SwiftUI
 
@@ -13,15 +12,9 @@ struct CanvasView : View {
     @State var color = Color(.sRGB, red: 0, green: 0, blue: 0)
     @EnvironmentObject var setting: Setting
     @State var points: [CGPoint] = []
-    @State var shapes: [ShapeParam] = []
+    @StateObject var shapes: ShapeParamViewModel = ShapeParamViewModel()
     @State var image: UIImage = UIImage()
 
-    func undo() {
-        if (shapes.count > 0) {
-            shapes.removeLast()
-        }
-    }
-    
     func openImage(imageUrl: URL) {
         do {
             let data = try Data(contentsOf: imageUrl)
@@ -29,6 +22,10 @@ struct CanvasView : View {
         } catch {
             fatalError("Load Image Error.fa")
         }
+    }
+
+    func undo() {
+        shapes.undo()
     }
     
     func isInShape(selected: CGPoint, top: CGPoint, last: CGPoint) -> Bool {
@@ -48,15 +45,17 @@ struct CanvasView : View {
     func moveShape() {
         let moveX = points.last!.x - points[0].x
         let moveY = points.last!.y - points[0].y
-        for (sindex, shape) in self.shapes.reversed().enumerated() {
+        for (index, shape) in self.shapes.params.reversed().enumerated() {
             var found = false
-            if (isInShape(selected: self.points[0], top: shape.points[0], last: shape.points.last!)) {
+            if shape.points == nil {
+                continue
+            }
+            if (isInShape(selected: self.points[0], top: shape.points!.first!, last: shape.points!.last!)) {
                 found = true
             }
             if (found) {
-                for (pindex, point) in shape.points.enumerated() {
-                    shapes[self.shapes.count - 1 - sindex].points[pindex] = CGPoint(x: point.x + moveX, y: point.y + moveY)
-                }
+                print("moveShape", index)
+                shapes.move(index: self.shapes.params.count - 1 - index, x: moveX, y: moveY)
                 break
             }
         }
@@ -69,10 +68,11 @@ struct CanvasView : View {
             self.points.append(value.location)
         }
         .onEnded{ value in
-            if (mode != PaintMode.select) {
-                self.shapes.append(ShapeParam(mode: self.mode, points: self.points, color: self.color, weight: CGFloat(self.setting.data.weight)))
-            } else {
+            if (mode == PaintMode.select) {
+                print("select")
                 moveShape()
+            } else {
+                self.shapes.add(mode: self.mode, points: self.points, color: self.color, weight: self.setting.data.weight)
             }
             self.points = []
         }
@@ -87,24 +87,28 @@ struct CanvasView : View {
                 Rectangle()
                     .fill(Color.clear)
                     .border(Color.black)
+                ForEach(self.shapes.params) { shape in
+                    if shape.mode == PaintMode.line.rawValue {
+                        StrokeShape(param: shape)
+                    }
+                    else if shape.mode == PaintMode.ellipse.rawValue {
+                        EllipseShape(param: shape)
+                    }
+                    else if shape.mode == PaintMode.rectangle.rawValue {
+                        RectangleShape(param: shape)
+                    }
+                }
             }
             .frame(width: 400, height: 400)
             .gesture(drag)
-            .overlay(
-                ZStack {
-                    ForEach(0..<shapes.count, id:\.self) { index in
-                        if self.shapes[index].mode == PaintMode.line {
-                            StrokeShape(param: self.shapes[index])
-                        }
-                        else if self.shapes[index].mode == PaintMode.ellipse {
-                            EllipseShape(param: self.shapes[index])
-                        }
-                        else if self.shapes[index].mode == PaintMode.rectangle {
-                            RectangleShape(param: self.shapes[index])
-                        }
-                   }
-                }
-            )
+//            .overlay(
+//            )
         }
     }
 }
+
+//struct CanvasView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        CanvasView()
+//    }
+//}

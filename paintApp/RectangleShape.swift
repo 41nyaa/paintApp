@@ -33,10 +33,10 @@ struct RectangleShape: View {
     
     var body: some View {
         Rectangle()
-            .stroke(style: .init(lineWidth: param.weight))
-            .fill(param.color)
-            .frame(width: abs(param.points[0].x - param.points[param.points.count-1].x),
-                   height: abs(param.points[0].y - param.points[param.points.count-1].y))
-            .position(calcPosition(p1: param.points[0], p2: param.points[param.points.count-1]))
+            .stroke(style: .init(lineWidth: CGFloat(param.weight)))
+            .fill(param.getColor()!)
+            .frame(width: abs(param.points![0].x - param.points![param.points!.count-1].x),
+                   height: abs(param.points![0].y - param.points![param.points!.count-1].y))
+            .position(calcPosition(p1: param.points![0], p2: param.points![param.points!.count-1]))
     }
 }

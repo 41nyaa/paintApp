@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-public enum PaintMode {
+public enum PaintMode: Int16 {
     case select
     case ellipse
     case rectangle

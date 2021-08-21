@@ -13,7 +13,7 @@ struct StrokeShape: View {
     
     var body: some View {
         Path { path in
-            for (index, point) in self.param.points.enumerated() {
+            for (index, point) in self.param.points!.enumerated() {
                 if (index == 0) {
                     path.move(to: point)
                 } else {
@@ -23,7 +23,7 @@ struct StrokeShape: View {
                 }
             }
         }
-        .stroke(style: .init(lineWidth: param.weight))
-        .fill(param.color)
+        .stroke(style: .init(lineWidth: CGFloat(param.weight)))
+        .fill(param.getColor()!)
     }
 }
