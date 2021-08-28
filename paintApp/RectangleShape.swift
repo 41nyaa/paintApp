@@ -9,10 +9,14 @@ import Foundation
 import SwiftUI
 
 struct RectangleShape: View {
-    var param: ShapeParam
-    
-    init(param: ShapeParam) {
-        self.param = param
+    var color: Color
+    var points: [CGPoint]
+    var weight: Int16
+
+    init(color: Color, points: [CGPoint], weight: Int16) {
+        self.color = color
+        self.points = points
+        self.weight = weight
     }
 
     func calcPosition(p1: CGPoint, p2: CGPoint) -> CGPoint {
@@ -33,10 +37,10 @@ struct RectangleShape: View {
     
     var body: some View {
         Rectangle()
-            .stroke(style: .init(lineWidth: CGFloat(param.weight)))
-            .fill(param.getColor()!)
-            .frame(width: abs(param.points![0].x - param.points![param.points!.count-1].x),
-                   height: abs(param.points![0].y - param.points![param.points!.count-1].y))
-            .position(calcPosition(p1: param.points![0], p2: param.points![param.points!.count-1]))
+            .stroke(style: .init(lineWidth: CGFloat(self.weight)))
+            .fill(self.color)
+            .frame(width: abs(self.points.first!.x - self.points.last!.x),
+                   height: abs(self.points.first!.y - self.points.last!.y))
+            .position(calcPosition(p1: self.points.first!, p2: self.points.last!))
     }
 }

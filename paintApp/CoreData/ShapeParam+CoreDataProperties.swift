@@ -26,15 +26,4 @@ extension ShapeParam {
 }
 
 extension ShapeParam : Identifiable {
-    
-    func getColor() -> Color? {
-        guard let uiColor = color else {
-            return nil
-        }
-        
-        return Color(red: Double(uiColor.cgColor.components![0]),
-                     green: Double(uiColor.cgColor.components![1]),
-                     blue: Double(uiColor.cgColor.components![2]))
-    }
-
 }

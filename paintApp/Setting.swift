@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 struct SettingData : Codable {
-    var weight: Int = 6
+    var weight: Int16 = 6
 }
 
 final class Setting : ObservableObject {

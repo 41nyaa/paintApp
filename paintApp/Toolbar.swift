@@ -18,9 +18,10 @@ public enum PaintMode: Int16 {
 struct Toolbar : View {
     @Binding var mode: PaintMode
     @Binding var color: Color
+    @State var invalidImage: Bool = false
     @State var openFile: Bool = false
     var undo: () -> Void
-    var openImage: (URL) -> Void
+    var openImage: (URL) -> Bool
     @EnvironmentObject var setting: Setting
     
     var body: some View
@@ -51,13 +52,16 @@ struct Toolbar : View {
                     Text("open")
                 })
                 .fileImporter(isPresented: $openFile, allowedContentTypes: [.bmp, .png], allowsMultipleSelection: false) { res in
-                    print(res)
+                    
                     do {
                         let fileUrl = try res.get().first!
-                        openImage(fileUrl)
+                        self.invalidImage = !openImage(fileUrl)
                     } catch {
-                        fatalError("Select File Error.")
+                        self.invalidImage = true
                     }
+                }
+                .alert(isPresented: $invalidImage) {
+                    Alert(title: Text("Invalid image file."), dismissButton: .default(Text("OK")))
                 }
                 ColorPicker("", selection: $color)
             }

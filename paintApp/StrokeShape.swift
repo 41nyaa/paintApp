@@ -9,11 +9,19 @@ import Foundation
 import SwiftUI
 
 struct StrokeShape: View {
-    var param: ShapeParam
+    var color: Color
+    var points: [CGPoint]
+    var weight: Int16
     
+    init(color: Color, points: [CGPoint], weight: Int16) {
+        self.color = color
+        self.points = points
+        self.weight = weight
+    }
+
     var body: some View {
         Path { path in
-            for (index, point) in self.param.points!.enumerated() {
+            for (index, point) in self.self.points.enumerated() {
                 if (index == 0) {
                     path.move(to: point)
                 } else {
@@ -23,7 +31,7 @@ struct StrokeShape: View {
                 }
             }
         }
-        .stroke(style: .init(lineWidth: CGFloat(param.weight)))
-        .fill(param.getColor()!)
+        .stroke(style: .init(lineWidth: CGFloat(self.weight)))
+        .fill(self.color)
     }
 }

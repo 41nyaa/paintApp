@@ -6,6 +6,7 @@
 //
 import Foundation
 import SwiftUI
+import UIKit
 
 struct CanvasView : View {
     @State var mode = PaintMode.line
@@ -15,13 +16,14 @@ struct CanvasView : View {
     @StateObject var shapes: ShapeParamViewModel = ShapeParamViewModel()
     @State var image: UIImage = UIImage()
 
-    func openImage(imageUrl: URL) {
+    func openImage(imageUrl: URL) -> Bool {
         do {
             let data = try Data(contentsOf: imageUrl)
             self.image = UIImage(data: data)!
         } catch {
-            fatalError("Load Image Error.fa")
+            return false
         }
+        return true
     }
 
     func undo() {
@@ -54,12 +56,16 @@ struct CanvasView : View {
                 found = true
             }
             if (found) {
-                print("moveShape", index)
                 shapes.move(index: self.shapes.params.count - 1 - index, x: moveX, y: moveY)
                 break
             }
         }
-
+    }
+    
+    func toColor(_ uiColor: UIColor) -> Color {
+        return Color(red: Double(uiColor.cgColor.components![0]),
+                     green: Double(uiColor.cgColor.components![1]),
+                     blue: Double(uiColor.cgColor.components![2]))
     }
     
     var drag: some Gesture{
@@ -69,7 +75,6 @@ struct CanvasView : View {
         }
         .onEnded{ value in
             if (mode == PaintMode.select) {
-                print("select")
                 moveShape()
             } else {
                 self.shapes.add(mode: self.mode, points: self.points, color: self.color, weight: self.setting.data.weight)
@@ -89,20 +94,29 @@ struct CanvasView : View {
                     .border(Color.black)
                 ForEach(self.shapes.params) { shape in
                     if shape.mode == PaintMode.line.rawValue {
-                        StrokeShape(param: shape)
+                        StrokeShape(color: toColor(shape.color!), points: shape.points!, weight: shape.weight)
                     }
                     else if shape.mode == PaintMode.ellipse.rawValue {
-                        EllipseShape(param: shape)
+                        EllipseShape(color: toColor(shape.color!), points: shape.points!, weight: shape.weight)
                     }
                     else if shape.mode == PaintMode.rectangle.rawValue {
-                        RectangleShape(param: shape)
+                        RectangleShape(color: toColor(shape.color!), points: shape.points!, weight: shape.weight)
+                    }
+                }
+                if (points.count > 5) {
+                    if self.mode == PaintMode.line {
+                        StrokeShape(color: self.color, points: self.points, weight: self.setting.data.weight)
+                    }
+                    else if self.mode == PaintMode.ellipse {
+                        EllipseShape(color: self.color, points: self.points, weight: self.setting.data.weight)
+                    }
+                    else if self.mode == PaintMode.rectangle {
+                        RectangleShape(color: self.color, points: self.points, weight: self.setting.data.weight)
                     }
                 }
             }
             .frame(width: 400, height: 400)
             .gesture(drag)
-//            .overlay(
-//            )
         }
     }
 }

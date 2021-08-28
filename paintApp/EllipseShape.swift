@@ -9,10 +9,14 @@ import Foundation
 import SwiftUI
 
 struct EllipseShape: View {
-    var param: ShapeParam
+    var color: Color
+    var points: [CGPoint]
+    var weight: Int16
     
-    init(param: ShapeParam) {
-        self.param = param
+    init(color: Color, points: [CGPoint], weight: Int16) {
+        self.color = color
+        self.points = points
+        self.weight = weight
     }
 
     func calcPosition(p1: CGPoint, p2: CGPoint) -> CGPoint {
@@ -33,10 +37,10 @@ struct EllipseShape: View {
     
     var body: some View {
         Ellipse()
-            .stroke(style: .init(lineWidth: CGFloat(param.weight)))
-            .fill(param.getColor()!)
-            .frame(width: abs(param.points!.first!.x - param.points!.last!.x),
-                   height: abs(param.points!.first!.y - param.points!.last!.y))
-            .position(calcPosition(p1: param.points!.first!, p2: param.points!.last!))
+            .stroke(style: .init(lineWidth: CGFloat(self.weight)))
+            .fill(self.color)
+            .frame(width: abs(self.points.first!.x - self.points.last!.x),
+                   height: abs(self.points.first!.y - self.points.last!.y))
+            .position(calcPosition(p1: self.points.first!, p2: self.points.last!))
     }
 }

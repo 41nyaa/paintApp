@@ -29,7 +29,7 @@ public class ShapeParamViewModel: ObservableObject {
         }
     }
 
-    func add(mode: PaintMode, points: [CGPoint], color: Color, weight: Int) {
+    func add(mode: PaintMode, points: [CGPoint], color: Color, weight: Int16) {
         guard let param: ShapeParam =
             NSEntityDescription.insertNewObject(forEntityName: "ShapeParam", into: self.container.viewContext) as? ShapeParam else {
                 fatalError("Create CoreData Error.")
@@ -39,7 +39,7 @@ public class ShapeParamViewModel: ObservableObject {
         param.mode = mode.rawValue
         param.points = points
         param.color = UIColor(color)
-        param.weight = Int16(weight)
+        param.weight = weight
 
         self.params.append(param)
         do {
